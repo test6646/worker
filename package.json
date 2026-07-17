@@ -1,0 +1,23 @@
+{
+  "name": "fyers-live-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Long-lived Node worker: one upstream Fyers Data Socket, fans ticks out to N browsers. Replaces supabase/functions/fyers-relay.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "fflate": "^0.8.3",
+    "fyers-api-v3": "2.0.0",
+    "postgres": "3.4.4",
+    "ws": "^8.18.0"
+  }
+}

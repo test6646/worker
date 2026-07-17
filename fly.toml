@@ -1,0 +1,29 @@
+# Fly.io config for the Fyers live worker. Deploy with:
+#   fly launch --no-deploy         (first time — creates the app)
+#   fly secrets set SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... \
+#                  FYERS_APP_ID=... FYERS_TICKET_SECRET=... ALLOWED_ORIGINS=...
+#   fly deploy
+#
+# Keep min_machines_running = 1 — this is a long-lived stateful process, NOT
+# a request-scoped worker. Scaling to zero would drop the upstream Fyers
+# socket and every browser subscription with it.
+app = "fyers-live-worker"
+primary_region = "bom"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "3000"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
